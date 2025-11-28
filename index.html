@@ -7,32 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Apple System Font Stack */
+        /* --- 核心字体与基础设置 --- */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: #f5f5f7;
             color: #1d1d1f;
             -webkit-font-smoothing: antialiased;
+            overscroll-behavior-y: none;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        html { 
+            scroll-behavior: smooth; 
+            overflow-x: hidden; 
+            width: 100%;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Apple-style Gradient Text */
+        /* --- 文本渐变效果 --- */
         .text-gradient-dark {
             background: linear-gradient(90deg, #1d1d1f 0%, #48484a 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .text-gradient-gold {
             background: linear-gradient(90deg, #b45309 0%, #f59e0b 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Card Styles */
+        /* --- 卡片基础样式 --- */
         .apple-card {
             background: white;
             border-radius: 24px;
@@ -42,15 +45,22 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
             border: 1px solid rgba(0,0,0,0.04);
         }
-
         .apple-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 20px 30px rgba(0,0,0,0.08);
             z-index: 10;
             border-color: rgba(0,0,0,0);
         }
+        .apple-card-interactive { 
+            cursor: pointer; 
+        }
+        /* 简单的点击反馈，仅在非触摸设备上有意义，触摸设备点击直接触发 */
+        .apple-card-interactive:active { 
+            transform: scale(0.98); 
+            transition: transform 0.1s ease; 
+        }
 
-        /* Timeline for Education/Experience */
+        /* --- 时间轴样式 --- */
         .timeline-item {
             position: relative;
             padding-left: 24px;
@@ -72,83 +82,15 @@
             border: 2px solid white;
         }
 
-        /* Navigation Icon Hover */
-        .nav-item {
-            transition: opacity 0.2s, transform 0.2s;
+        /* --- 导航栏与按钮 --- */
+        .glass-nav {
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
         }
-        .nav-item:hover {
-            opacity: 0.7;
-            transform: translateY(-2px);
-        }
+        .nav-item { transition: opacity 0.2s, transform 0.2s; }
+        .nav-item:hover { opacity: 0.7; transform: translateY(-2px); }
 
-        /* Custom Scrollbar - Universal Hide */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Native Scroll Rebound */
-        .scroll-rebound {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
-        }
-        .scroll-rebound-x {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-x: contain;
-        }
-        .scroll-rebound-y {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior-y: contain;
-        }
-
-        /* Tags & Badges */
-        .tag {
-            font-size: 13px; 
-            font-weight: 700; 
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            padding: 6px 10px;
-            border-radius: 6px;
-            display: inline-block;
-        }
-        .tag-blue { background: #e0f2fe; color: #0284c7; }
-        .tag-orange { background: #ffedd5; color: #ea580c; }
-        .tag-purple { background: #f3e8ff; color: #9333ea; }
-        .tag-gray { background: #f3f4f6; color: #374151; } 
-        
-        /* Info Pills */
-        .info-pill {
-            font-size: 12px;
-            background-color: #eef7ff;
-            color: #0071e3;
-            padding: 6px 12px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-            text-decoration: none;
-        }
-        .info-pill:hover {
-            background-color: #dbeafe;
-        }
-
-        /* Keyword Pills */
-        .pill {
-            font-size: 12px;
-            color: #6b7280;
-            background-color: transparent;
-            border: 1px solid #e5e7eb;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-weight: 500;
-        }
-
-        /* Button */
         .btn-apple {
             background-color: #0071e3;
             color: white;
@@ -161,52 +103,48 @@
             align-items: center;
             gap: 6px;
         }
-        .btn-apple:hover {
-            background-color: #0077ED;
-        }
+        .btn-apple:hover { background-color: #0077ED; }
+
+        /* --- 滚动条隐藏与原生回弹 --- */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         
-        .glass-nav {
-            background: rgba(251, 251, 253, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        .scroll-rebound-y { -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; }
+        .scroll-rebound-x { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+
+        /* --- 标签与药丸样式 --- */
+        .tag {
+            font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em;
+            padding: 6px 10px; border-radius: 6px; display: inline-block;
+        }
+        .tag-blue { background: #e0f2fe; color: #0284c7; }
+        .tag-orange { background: #ffedd5; color: #ea580c; }
+        .tag-purple { background: #f3e8ff; color: #9333ea; }
+        .tag-gray { background: #f3f4f6; color: #374151; } 
+        
+        .info-pill {
+            font-size: 12px; background-color: #eef7ff; color: #0071e3;
+            padding: 6px 12px; border-radius: 6px; display: inline-flex;
+            align-items: center; gap: 6px; font-weight: 500;
+            transition: background-color 0.2s; text-decoration: none;
+        }
+        .info-pill:hover { background-color: #dbeafe; }
+
+        .pill {
+            font-size: 12px; color: #6b7280; background-color: transparent;
+            border: 1px solid #e5e7eb; padding: 4px 12px; border-radius: 9999px; font-weight: 500;
         }
 
-        /* Scroll Hint Gradients */
-        .scroll-mask-bottom {
-            mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
-        }
-        .scroll-mask-right {
-            mask-image: linear-gradient(to right, black 95%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to right, black 95%, transparent 100%);
-        }
-
-        /* Institution Logo Placeholder Styles */
-        .inst-logo-container {
-            display: flex;
-            gap: 8px;
-        }
+        /* --- 机构Logo样式 --- */
+        .inst-logo-container { display: flex; gap: 8px; }
         .inst-logo {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-            border-radius: 8px; 
-            background-color: white;
-            padding: 2px;
-            border: 1px solid #f0f0f0;
-            transition: transform 0.2s;
+            width: 48px; height: 48px; object-fit: contain; border-radius: 8px; 
+            background-color: white; padding: 2px; border: 1px solid #f0f0f0; transition: transform 0.2s;
         }
-        .inst-logo:hover {
-            transform: scale(1.05);
-            border-color: #0071e3;
-        }
-        
-        .link-hover:hover {
-            color: #0071e3;
-            text-decoration: underline;
-        }
+        .inst-logo:hover { transform: scale(1.05); border-color: #0071e3; }
+        .link-hover:hover { color: #0071e3; text-decoration: underline; }
 
-        /* 3D Grid Background for Research */
+        /* --- 背景装饰 --- */
         .bg-grid-perspective {
             background-size: 40px 40px;
             background-image:
@@ -216,7 +154,7 @@
             transform-origin: top center;
         }
 
-        /* --- FADE UP ANIMATION --- */
+        /* --- 进场动画 --- */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -227,33 +165,88 @@
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
         .delay-500 { animation-delay: 0.5s; }
+
+        /* --- 移动端菜单动画 --- */
+        #mobile-menu {
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform-origin: top;
+        }
+        #mobile-menu.open {
+            max-height: 600px;
+            opacity: 1;
+        }
+        .mobile-nav-item {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        #mobile-menu.open .mobile-nav-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #mobile-menu.open .mobile-nav-item:nth-child(1) { transition-delay: 0.1s; }
+        #mobile-menu.open .mobile-nav-item:nth-child(2) { transition-delay: 0.15s; }
+        #mobile-menu.open .mobile-nav-item:nth-child(3) { transition-delay: 0.2s; }
+        #mobile-menu.open .mobile-nav-item:nth-child(4) { transition-delay: 0.25s; }
+        #mobile-menu.open .mobile-nav-item:nth-child(5) { transition-delay: 0.3s; }
+        #mobile-menu.open .mobile-nav-item:nth-child(6) { transition-delay: 0.35s; }
+        #mobile-menu.open .mobile-nav-item:nth-child(7) { transition-delay: 0.4s; }
+
+        /* --- App Store 风格模态框动画 --- */
+        #pub-modal-overlay {
+            transition: opacity 0.3s ease-out, backdrop-filter 0.3s ease-out;
+            opacity: 0;
+            pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(0px);
+        }
+        #pub-modal-content {
+            transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+            transform: scale(0.92) translateY(30px);
+            opacity: 0;
+        }
+        #pub-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            transition: opacity 0.4s ease-out, backdrop-filter 0.4s ease-out;
+        }
+        #pub-modal-overlay.active #pub-modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease-out;
+        }
+        
+        body.modal-open { overflow: hidden; }
     </style>
 </head>
 <body class="pb-24">
 
     <!-- Global Navigation -->
-    <nav class="sticky top-0 z-50 glass-nav border-b border-gray-200/50">
-        <div class="max-w-[1080px] mx-auto px-6 h-12 flex items-center justify-between text-xs font-medium text-gray-600">
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-gray-200/50">
+        <div class="max-w-[1080px] mx-auto px-6 h-12 flex items-center justify-between text-xs font-medium text-gray-600 relative">
             <div class="flex space-x-6 items-center">
-                <a href="#" class="hover:text-black transition-colors text-lg"><i class="fa-solid fa-cube"></i></a> 
+                <a href="#" class="hover:text-black transition-colors text-lg custom-scroll-link" data-target="hero-title"><i class="fa-solid fa-cube"></i></a> 
                 <span class="font-semibold text-black text-sm" id="nav-name"></span>
             </div>
+
             <div class="hidden md:flex space-x-8">
-                <a href="#about" class="hover:text-black transition-colors">Profile</a>
-                <a href="#education" class="hover:text-black transition-colors">Education</a>
-                <a href="#research" class="hover:text-black transition-colors">Research</a>
-                <a href="#publications" class="hover:text-black transition-colors">Publications</a>
-                <a href="#honors" class="hover:text-black transition-colors">Honors</a>
-                <a href="#contact" class="hover:text-black transition-colors">Contact</a>
+                <a href="#" data-target="about" class="hover:text-black transition-colors custom-scroll-link">Profile</a>
+                <a href="#" data-target="education" class="hover:text-black transition-colors custom-scroll-link">Education</a>
+                <a href="#" data-target="research" class="hover:text-black transition-colors custom-scroll-link">Research</a>
+                <a href="#" data-target="publications" class="hover:text-black transition-colors custom-scroll-link">Publications</a>
+                <a href="#" data-target="honors" class="hover:text-black transition-colors custom-scroll-link">Honors</a>
+                <a href="#" data-target="contact" class="hover:text-black transition-colors custom-scroll-link">Contact</a>
             </div>
             
-            <!-- Right Side: Email with Dropdown -->
-            <div class="relative group h-full flex items-center">
+            <div class="hidden md:flex relative group h-full items-center">
                 <a id="nav-email-link" href="#" class="hover:text-black transition-colors text-base py-2 relative z-10">
                     <i class="fa-regular fa-envelope"></i>
                 </a>
-                
-                <!-- Dropdown Card -->
                 <div class="absolute top-[80%] right-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 ease-out">
                     <div class="bg-white/90 backdrop-blur-xl border border-gray-200/60 shadow-2xl rounded-xl p-4 min-w-[240px] relative">
                         <div class="absolute top-[-6px] right-1.5 w-3 h-3 bg-white border-t border-l border-gray-200/60 transform rotate-45"></div>
@@ -267,19 +260,38 @@
                     </div>
                 </div>
             </div>
+
+            <button id="mobile-menu-btn" class="md:hidden text-gray-600 focus:outline-none p-2 -mr-2 z-50 relative">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="absolute top-full left-0 w-full bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg md:hidden hidden">
+            <div class="flex flex-col p-6 space-y-4 text-sm font-medium text-gray-600">
+                <a href="#" data-target="about" class="hover:text-black transition-colors block py-1 custom-scroll-link mobile-nav-item">Profile</a>
+                <a href="#" data-target="education" class="hover:text-black transition-colors block py-1 custom-scroll-link mobile-nav-item">Education</a>
+                <a href="#" data-target="research" class="hover:text-black transition-colors block py-1 custom-scroll-link mobile-nav-item">Research</a>
+                <a href="#" data-target="publications" class="hover:text-black transition-colors block py-1 custom-scroll-link mobile-nav-item">Publications</a>
+                <a href="#" data-target="honors" class="hover:text-black transition-colors block py-1 custom-scroll-link mobile-nav-item">Honors</a>
+                <a href="#" data-target="contact" class="hover:text-black transition-colors block py-1 custom-scroll-link mobile-nav-item">Contact</a>
+                <div class="border-t border-gray-100 pt-4 mt-2 mobile-nav-item">
+                    <span class="text-[10px] uppercase tracking-widest text-gray-400 font-bold block mb-2">Get in touch</span>
+                    <div class="flex items-center gap-2 text-gray-800 bg-gray-50 p-3 rounded-lg">
+                        <i class="fa-regular fa-envelope"></i>
+                        <span class="font-mono text-xs select-all break-all" id="mobile-nav-email"></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 
     <div class="max-w-[1080px] mx-auto px-6 pt-16">
-
-        <!-- Hero Section -->
         <header class="flex flex-col md:flex-row justify-between items-end mb-16">
             <div class="max-w-3xl">
                 <h1 class="text-6xl md:text-8xl font-bold tracking-tight mb-2 text-[#1d1d1f] leading-none animate-fade-up" id="hero-title"></h1>
                 <h2 class="text-5xl md:text-7xl font-bold tracking-tight text-[#86868b] leading-tight mb-6 animate-fade-up delay-100" id="hero-subtitle"></h2>
                 <p class="text-lg md:text-xl text-[#1d1d1f] font-normal leading-relaxed max-w-2xl animate-fade-up delay-200" id="hero-desc"></p>
             </div>
-            
             <div class="mt-8 md:mt-0 text-right animate-fade-up delay-300">
                  <div class="flex flex-col items-end gap-1">
                     <span class="text-xs font-semibold text-gray-400 uppercase tracking-wide">Status</span>
@@ -293,14 +305,11 @@
                  </div>
             </div>
         </header>
-
-        <!-- Subtle Divider Line -->
         <div class="w-full border-b border-gray-200/80 mb-12 animate-fade-up delay-400"></div>
 
-        <!-- Bento Grid Layout -->
         <div class="grid grid-cols-1 md:grid-cols-6 gap-6 auto-rows-min animate-fade-up delay-500">
 
-            <!-- Profile Card (Span 3) -->
+            <!-- Profile Card -->
             <div id="about" class="apple-card col-span-1 md:col-span-3 h-auto min-h-[540px] bg-black text-white flex flex-col p-8 group relative overflow-hidden">
                 <div class="z-20 relative flex-1">
                     <div class="w-28 h-28 rounded-full overflow-hidden mb-6 border-4 border-white/20 shadow-lg bg-gray-800">
@@ -312,12 +321,7 @@
                     <h2 class="text-4xl font-bold mb-4" id="profile-name"></h2>
                     <p class="text-gray-300 text-base leading-relaxed max-w-sm" id="profile-bio"></p>
                 </div>
-                
-                <div class="flex gap-3 z-20 mt-8 md:mt-4 flex-wrap" id="profile-links">
-                    <!-- JS will populate links here -->
-                </div>
-
-                <!-- Decoration -->
+                <div class="flex gap-3 z-20 mt-8 md:mt-4 flex-wrap" id="profile-links"></div>
                 <div class="absolute bottom-0 left-0 right-0 h-40 overflow-hidden pointer-events-none z-10">
                     <div class="absolute w-[200%] h-full bg-gradient-to-t from-blue-900/40 to-transparent bottom-[-20px] blur-xl"></div>
                     <div class="absolute bottom-[-50px] left-[-20px] w-64 h-64 border border-white/5 rounded-full"></div>
@@ -327,36 +331,26 @@
                 </div>
             </div>
 
-            <!-- Education Card (Span 3) -->
+            <!-- Education Card -->
             <div id="education" class="apple-card col-span-1 md:col-span-3 h-[540px] md:h-full md:min-h-[540px] bg-white flex flex-col relative overflow-hidden">
-                <!-- Decoration -->
                 <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-blue-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
                 <div class="absolute bottom-0 right-0 -mb-6 -mr-6 text-gray-50 opacity-[0.08] text-9xl transform -rotate-12 pointer-events-none z-0">
                     <i class="fa-solid fa-graduation-cap"></i>
                 </div>
-
-                <!-- Fix: Changed mb-6 to mb-2, added pb-4 to match Research card's header height -->
                 <div class="pt-8 px-8 mb-2 pb-4 flex items-center justify-between shrink-0 relative z-20 bg-white">
                     <h3 class="text-3xl font-bold text-gray-900">Education</h3>
                     <i class="fa-solid fa-graduation-cap text-gray-300 text-2xl"></i>
                 </div>
-                
-                <!-- Scrollable Area -->
-                <div id="education-scroll" class="flex-1 overflow-y-auto hide-scrollbar scroll-mask-bottom scroll-rebound-y px-8 space-y-8 relative z-10 vertical-scroll-area pb-8">
-                    <!-- JS will populate education items here -->
-                </div>
-
-                <!-- Bottom Deco -->
-                <div class="h-24 w-full bg-gradient-to-t from-blue-50 to-transparent relative mt-auto z-0">
+                <div id="education-scroll" class="flex-1 overflow-y-auto hide-scrollbar scroll-rebound-y px-8 space-y-8 relative z-10 vertical-scroll-area pb-8"></div>
+                <div class="h-16 w-full bg-gradient-to-t from-blue-50 to-transparent relative mt-auto z-0">
                     <div class="absolute bottom-0 right-10 w-16 h-16 bg-blue-100 rounded-t-lg opacity-60"></div>
                     <div class="absolute bottom-0 right-28 w-12 h-10 bg-blue-200 rounded-t-lg opacity-50"></div>
                     <div class="absolute bottom-0 right-44 w-10 h-6 bg-blue-50 rounded-t-lg opacity-70"></div>
                 </div>
             </div>
 
-            <!-- Research Experience (Span 6) -->
+            <!-- Research Experience -->
             <div id="research" class="apple-card col-span-1 md:col-span-6 bg-white relative overflow-hidden h-[540px] md:h-auto">
-                <!-- Deco -->
                 <div class="absolute top-0 left-0 w-full h-64 bg-grid-perspective opacity-30 pointer-events-none"></div>
                 <div class="absolute bottom-0 left-0 w-full h-full pointer-events-none opacity-10 overflow-hidden">
                     <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="none">
@@ -366,22 +360,16 @@
                         <circle cx="600" cy="120" r="6" fill="#0071e3" />
                     </svg>
                 </div>
-
                 <div class="h-full flex flex-col relative z-10">
-                    <!-- Header -->
-                    <div class="pt-8 px-8 mb-2 text-center shrink-0 bg-white relative z-20">
-                        <h3 class="text-3xl font-bold mb-4">Research Experience</h3>
+                    <div class="pt-8 px-8 mb-2 pb-4 text-center shrink-0 bg-white relative z-20">
+                        <h3 class="text-3xl font-bold">Research Experience</h3>
                     </div>
-
-                    <!-- Internal Scroll Container -->
-                    <div id="research-scroll" class="flex-1 space-y-0 overflow-y-auto hide-scrollbar md:overflow-visible scroll-mask-bottom scroll-rebound-y px-4 md:px-8 vertical-scroll-area pb-8 md:pb-8 max-w-4xl mx-auto w-full">
-                        <!-- JS will populate research items here -->
-                    </div>
+                    <div id="research-scroll" class="flex-1 space-y-0 overflow-y-auto hide-scrollbar md:overflow-visible scroll-rebound-y px-4 md:px-8 vertical-scroll-area pb-8 md:pb-8 max-w-4xl mx-auto w-full"></div>
+                    <div class="h-16 w-full bg-gradient-to-t from-white/90 to-transparent relative mt-auto shrink-0 pointer-events-none z-20"></div>
                 </div>
             </div>
 
-            <!-- Publications Section Title -->
-            <div id="publications" class="col-span-1 md:col-span-6 mt-8 mb-4">
+            <div id="publications" class="col-span-1 md:col-span-6 mt-8 mb-0">
                 <div class="flex justify-between items-end">
                     <div>
                         <h3 class="text-3xl font-bold text-[#1d1d1f]">Publications</h3>
@@ -389,13 +377,9 @@
                     <span class="text-sm text-gray-400"><i class="fa-solid fa-arrows-left-right mr-1"></i> Swipe to see more</span>
                 </div>
             </div>
+            
+            <div id="publications-scroll" class="col-span-1 md:col-span-6 flex gap-6 overflow-x-auto hide-scrollbar pt-4 pb-12 px-6 -mx-6 md:px-0 md:mx-0 snap-x scroll-rebound-x horizontal-scroll-area items-stretch"></div>
 
-            <!-- Horizontal Scrollable Publications Container (Span 6) -->
-            <div id="publications-scroll" class="col-span-1 md:col-span-6 flex gap-6 overflow-x-auto hide-scrollbar pb-6 snap-x scroll-mask-right scroll-rebound-x horizontal-scroll-area">
-                <!-- JS will populate publications here -->
-            </div>
-
-            <!-- Honors & Awards (Span 6, Horizontal Scroll) -->
             <div id="honors" class="apple-card col-span-1 md:col-span-6 p-8 bg-[#1d1d1f] text-white">
                 <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
                     <div>
@@ -407,20 +391,14 @@
                         <i class="fa-solid fa-trophy text-yellow-600 text-3xl opacity-50"></i>
                     </div>
                 </div>
-                
-                <div id="honors-scroll" class="flex gap-6 overflow-x-auto hide-scrollbar pb-2 snap-x horizontal-scroll-area scroll-rebound-x">
-                    <!-- JS will populate honors here -->
-                </div>
+                <div id="honors-scroll" class="flex gap-6 overflow-x-auto hide-scrollbar pb-2 snap-x horizontal-scroll-area scroll-rebound-x"></div>
             </div>
 
-            <!-- Contact Section (Updated as Card) -->
             <div id="contact" class="apple-card col-span-1 md:col-span-6 p-8 bg-white flex flex-col relative overflow-hidden">
-                 <!-- Decoration -->
                  <div class="absolute right-0 bottom-0 w-64 h-64 bg-gradient-to-tl from-orange-50 to-transparent opacity-60 rounded-tl-full pointer-events-none"></div>
                  <div class="absolute right-8 bottom-6 text-orange-200 opacity-30 text-8xl transform -rotate-12 pointer-events-none z-0">
                     <i class="fa-regular fa-paper-plane"></i>
                  </div>
-
                  <div class="mb-6 border-b border-gray-100 pb-4 relative z-10">
                      <h3 class="text-3xl font-bold text-[#1d1d1f]">Contact</h3>
                  </div>
@@ -448,7 +426,6 @@
 
         </div>
 
-        <!-- Footer -->
         <footer class="mt-20 border-t border-gray-200 pt-10 text-sm text-gray-500">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
@@ -462,27 +439,59 @@
 
     </div>
 
-    <script src="config.js"></script>
+    <!-- MODAL -->
+    <div id="pub-modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8 opacity-0 pointer-events-none bg-black/30 backdrop-blur-md" onclick="closePublication()">
+        <div id="pub-modal-content" class="bg-white w-[90%] md:w-full max-w-3xl h-[85vh] md:h-[90vh] rounded-[32px] shadow-2xl overflow-hidden relative flex flex-col" onclick="event.stopPropagation()">
+            <button onclick="closePublication()" class="absolute top-4 right-4 z-50 w-8 h-8 bg-black/10 hover:bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center text-black/60 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div id="modal-scroll-container" class="flex-1 overflow-y-auto hide-scrollbar scroll-rebound-y">
+                <div id="modal-image-container" class="w-full h-64 md:h-96 bg-gray-100 relative overflow-hidden shrink-0">
+                    <img id="modal-image" src="" class="w-full h-full object-cover">
+                    <div id="modal-abstract-visual" class="hidden absolute inset-0 bg-[#f8fafc] flex items-center justify-center"></div>
+                </div>
+                <div class="p-8 md:p-12 pb-32">
+                    <div class="mb-6">
+                         <span id="modal-tag" class="tag mb-4"></span>
+                         <h2 id="modal-title" class="text-3xl md:text-4xl font-bold text-[#1d1d1f] leading-tight mb-4"></h2>
+                         <p id="modal-authors" class="text-gray-500 text-base font-medium"></p>
+                         <p id="modal-venue" class="text-[#424245] text-base italic mt-1"></p>
+                    </div>
+                    <div class="w-full border-b border-gray-100 mb-8"></div>
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-gray-900">Abstract</h3>
+                        <p id="modal-desc" class="text-lg text-gray-600 leading-relaxed font-normal"></p>
+                        <div id="modal-keywords" class="flex flex-wrap gap-2 pt-4"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-0 w-full p-6 bg-white/80 backdrop-blur-xl border-t border-gray-100 flex justify-center">
+                <a id="modal-action-btn" href="#" target="_blank" class="btn-apple text-base px-8 py-3 rounded-full shadow-lg transform hover:-translate-y-1 transition-all">
+                    View Paper <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPT SECTION -->
+    <script src="config.js"></script>
+
     <script>
         // ==========================================
-        // CONFIGURATION SECTION - EDIT DATA HERE
+        // CONFIGURATION SECTION
         // ==========================================
 
-        // ==========================================
-        // RENDERING LOGIC
-        // ==========================================
         function renderContent() {
-            // --- Profile & Hero ---
+            // Profile & Hero
             document.getElementById('nav-name').textContent = config.profile.name;
             document.getElementById('nav-email-link').href = `mailto:${config.profile.email}`;
             document.getElementById('nav-email-text').textContent = config.profile.email;
-            
+            document.getElementById('mobile-nav-email').textContent = config.profile.email;
             document.getElementById('hero-title').textContent = config.hero.title;
             document.getElementById('hero-subtitle').textContent = config.hero.subtitle;
             document.getElementById('hero-desc').textContent = config.hero.desc;
             document.getElementById('hero-status').textContent = config.hero.status;
-
             document.getElementById('profile-avatar').src = config.profile.avatar;
             document.getElementById('profile-role').textContent = config.profile.role;
             document.getElementById('profile-name').textContent = config.profile.name;
@@ -502,14 +511,13 @@
             document.getElementById('contact-location').textContent = config.profile.location;
             document.getElementById('footer-name').textContent = config.profile.name;
 
-            // --- Education ---
+            // Education
             const eduContainer = document.getElementById('education-scroll');
             config.education.forEach(edu => {
                 let logosHTML = '';
                 edu.logos.forEach(logo => {
                     logosHTML += `<a href="${logo.link}" target="_blank" title="${logo.alt}"><img src="${logo.src}" alt="${logo.alt}" class="inst-logo"></a>`;
                 });
-
                 const item = document.createElement('div');
                 item.className = 'flex gap-4 group items-start';
                 item.innerHTML = `
@@ -517,7 +525,7 @@
                     <div class="flex-1">
                         <span class="tag tag-gray mb-1">${edu.time}</span>
                         <h4 class="text-lg font-bold text-gray-900 leading-tight mt-1">
-                            <a href="${edu.schoolLink}" target="_blank" class="link-hover">${edu.school}</a>
+                            ${edu.school}
                         </h4>
                         <p class="text-base text-[#0071e3] font-medium mt-1">${edu.degree}</p>
                         <p class="text-sm text-gray-500 mt-1">${edu.desc}</p>
@@ -526,14 +534,13 @@
                 eduContainer.appendChild(item);
             });
 
-            // --- Research ---
+            // Research
             const resContainer = document.getElementById('research-scroll');
             config.research.forEach(res => {
                 let tagsHTML = '';
                 res.tags.forEach(tag => {
                     tagsHTML += `<a href="${tag.link}" target="_blank" class="info-pill"><i class="${tag.icon}"></i> ${tag.text}</a>`;
                 });
-
                 const item = document.createElement('div');
                 item.className = 'timeline-item';
                 item.innerHTML = `
@@ -551,14 +558,14 @@
                 resContainer.appendChild(item);
             });
 
-            // --- Publications ---
+            // Publications
             const pubContainer = document.getElementById('publications-scroll');
-            config.publications.forEach(pub => {
+            config.publications.forEach((pub, index) => {
                 let pillsHTML = '';
                 pub.keywords.forEach(k => { pillsHTML += `<span class="pill">${k}</span>`; });
 
                 let imageAreaHTML = '';
-                const imageClass = "h-56 w-full relative overflow-hidden shrink-0";
+                const imageClass = "h-56 min-h-[14rem] w-full relative overflow-hidden shrink-0";
                 
                 if (pub.imageMode === 'abstract') {
                     imageAreaHTML = `
@@ -583,35 +590,30 @@
                     </div>`;
                 }
 
-                const tag = `a`;
-                const href = pub.isLink ? `href="${pub.url}" target="_blank"` : `href="#"`;
-                const classes = "apple-card min-w-[400px] w-[400px] h-[560px] flex flex-col group cursor-pointer snap-center shrink-0 bg-white border border-gray-200/60 p-0 hover:no-underline block";
-
-                const item = document.createElement(tag);
-                item.className = classes;
-                if(pub.isLink) { item.href = pub.url; item.target = "_blank"; } else { item.href="#"; }
+                const item = document.createElement('div');
+                item.className = "apple-card min-w-[300px] w-[300px] md:min-w-[380px] md:w-[380px] h-full flex flex-col group cursor-pointer snap-center shrink-0 bg-white border border-gray-200/60 p-0 hover:no-underline block apple-card-interactive";
+                item.onclick = () => openPublication(index);
                 
                 item.innerHTML = `
-                    <div class="p-6 flex flex-col flex-1 relative z-10">
-                        <div class="mb-3"><span class="tag ${pub.typeClass}">${pub.type}</span></div>
-                        <h4 class="text-2xl font-bold text-[#1d1d1f] leading-snug mb-2 group-hover:text-[#0071e3] transition-colors">${pub.title}</h4>
-                        <p class="text-gray-500 text-sm font-medium mb-3">${pub.authors}</p>
+                    <div class="p-6 flex flex-col flex-1 relative z-10 min-h-0 overflow-hidden">
+                        <div class="mb-3 shrink-0"><span class="tag ${pub.typeClass}">${pub.type}</span></div>
+                        <h4 class="text-xl font-bold text-[#1d1d1f] leading-snug mb-2 group-hover:text-[#0071e3] transition-colors">${pub.title}</h4>
+                        <p class="text-gray-500 text-sm font-medium mb-3 shrink-0">${pub.authors}</p>
                         <p class="text-[#424245] text-base leading-relaxed italic">${pub.venue}</p>
-                        <div class="flex flex-wrap gap-2 mt-auto pt-4">${pillsHTML}</div>
+                        <div class="flex flex-wrap gap-2 mt-auto pt-4 shrink-0">${pillsHTML}</div>
                     </div>
                     ${imageAreaHTML}
                 `;
                 pubContainer.appendChild(item);
             });
 
-            // --- Honors ---
+            // Honors
             const honContainer = document.getElementById('honors-scroll');
             config.honors.forEach(hon => {
                 let tagsHTML = '';
                 hon.tags.forEach(t => {
                     tagsHTML += `<span class="${t.class} text-sm px-2 py-1 rounded">${t.text}</span>`;
                 });
-
                 const item = document.createElement('div');
                 item.className = 'bg-white/10 backdrop-blur-sm rounded-xl p-5 hover:bg-white/15 transition-colors border border-white/5 min-w-[280px] snap-center shrink-0 cursor-default flex flex-col justify-between';
                 item.innerHTML = `
@@ -626,10 +628,123 @@
             });
         }
 
-        // Run rendering
         renderContent();
 
-        // --- Scroll Physics Logic ---
+        // Modal Logic
+        function openPublication(index) {
+            const pub = config.publications[index];
+            document.getElementById('modal-tag').className = `tag mb-4 ${pub.typeClass}`;
+            document.getElementById('modal-tag').innerText = pub.type;
+            document.getElementById('modal-title').innerText = pub.title;
+            document.getElementById('modal-authors').innerHTML = pub.authors;
+            document.getElementById('modal-venue').innerText = pub.venue;
+            document.getElementById('modal-desc').innerHTML = pub.abstract || "No abstract available.";
+            
+            const kwContainer = document.getElementById('modal-keywords');
+            kwContainer.innerHTML = '';
+            pub.keywords.forEach(k => {
+                const span = document.createElement('span');
+                span.className = 'pill';
+                span.innerText = k;
+                kwContainer.appendChild(span);
+            });
+
+            const imgEl = document.getElementById('modal-image');
+            const abstractEl = document.getElementById('modal-abstract-visual');
+            
+            if (pub.imageMode === 'abstract') {
+                imgEl.classList.add('hidden');
+                abstractEl.classList.remove('hidden');
+                abstractEl.innerHTML = `
+                    <div class="relative flex flex-col items-center justify-center">
+                        <div class="absolute inset-0 bg-blue-400 blur-3xl opacity-20"></div>
+                        <i class="fa-solid fa-cube text-6xl text-blue-500 mb-4"></i>
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-400">Visualization Placeholder</span>
+                    </div>
+                `;
+            } else {
+                imgEl.classList.remove('hidden');
+                abstractEl.classList.add('hidden');
+                imgEl.src = pub.image;
+            }
+
+            const btn = document.getElementById('modal-action-btn');
+            if (pub.isLink) {
+                btn.href = pub.url;
+                btn.classList.remove('hidden');
+            } else {
+                btn.classList.add('hidden');
+            }
+
+            // Reset scroll position
+            const scrollContainer = document.getElementById('modal-scroll-container');
+            if(scrollContainer) scrollContainer.scrollTop = 0;
+
+            const overlay = document.getElementById('pub-modal-overlay');
+            document.body.classList.add('modal-open');
+            overlay.classList.add('active');
+        }
+
+        function closePublication() {
+            const overlay = document.getElementById('pub-modal-overlay');
+            overlay.classList.remove('active');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Navigation & Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        function toggleMobileMenu() {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                setTimeout(() => mobileMenu.classList.add('open'), 10);
+            } else {
+                closeMobileMenu();
+            }
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            setTimeout(() => {
+                if (!mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }, 500);
+        }
+        
+        mobileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMobileMenu();
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+                closeMobileMenu();
+            }
+
+            // Smooth Scroll Logic
+            const link = e.target.closest('.custom-scroll-link');
+            if (link) {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        closeMobileMenu();
+                    }
+                    const headerOffset = 80; 
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            }
+        });
+
+        // Scroll Physics
         const hScrollContainers = document.querySelectorAll('.horizontal-scroll-area');
         hScrollContainers.forEach(container => {
             container.addEventListener('wheel', (evt) => {
