@@ -97,6 +97,7 @@ const config = {
             title: "Latest Research Progress",
             authors: "<strong>Qian Xingyu</strong>, et al.",
             venue: "Updating in progress. Stay tuned...",
+            abstract: "More details will be updated soon as the project progresses.",
             keywords: ["3D Vision", "SLAM"],
             isLink: false, // 是否包含可跳转链接
             url: "#",
@@ -109,6 +110,7 @@ const config = {
             title: "Multi-scale GAN-driven GPR data inversion for monitoring urban road substructure",
             authors: "Feifei Hou, <strong>Xingyu Qian</strong>, Qiwen Meng, Jian Dong, Fei Lyu",
             venue: "Automation in Construction, 2025",
+            abstract: "Accurate monitoring and visualization of urban road substructure and targets are impeded by challenges in inverting Ground Penetrating Radar (GPR) data, especially under multiple inversion objectives and complex road conditions. To address this challenge, a deep learning-based multi-scale inversion approach, termed MSInv-GPR, is proposed, which builds on the Pix2pix Generative Adversarial Network (Pix2pixGAN) framework. This approach introduces dual-channel inputs to improve inversion accuracy, integrates a multi-scale convolution module along with an Efficient Multi-scale Attention (EMA) module to better capture characteristic waveforms, and incorporates a loss function strategy to strengthen adversarial training and accelerate convergence. Ablation studies validate that MSInv-GPR achieves Structural Similarity Index (SSIM) of 99.75 %, Peak Signal-to-Noise Ratio (PSNR) of 47.9014, and Mean Squared Error (MSE) of 12.5825 for 8-bit images, with 51.69 % improvement in Power Supply Modulation Ratio (PSMR) and an increase in discriminator loss from 0.1132 to 1.1603 compared to a baseline.",
             keywords: ["GAN", "GPR Inversion", "Urban Monitoring"],
             isLink: true,
             url: "https://www.sciencedirect.com/science/article/abs/pii/S0926580525001803",
