@@ -98,18 +98,31 @@ const config = {
             authors: "<strong>Qian Xingyu</strong>, et al.",
             venue: "Updating in progress. Stay tuned...",
             abstract: "More details will be updated soon as the project progresses.",
-            keywords: ["3D Vision", "SLAM"],
+            keywords: ["3D Vision", "Line Mapping"],
             isLink: false, // 是否包含可跳转链接
             url: "#",
             image: "https://via.placeholder.com/340x224?text=Coming+Soon", // 占位图
             imageMode: "abstract" // 'abstract' (显示动态几何图形) 或 'image' (显示具体图片)
         },
         {
+            type: "Conference Paper",
+            typeClass: "tag-purple",
+            title: "RaftNR-SLAM: A Non-Rigid SLAM System Based on RAFT Optical Flow Estimation",
+            authors: "<strong>Xingyu Qian</strong>, Hainan Cui, Shuhan Shen",
+            venue: "The IEEE International Conference on Ubiquitous Positioning, Indoor Navigation and Location-Based Services, <strong>UPINLBS</strong> 2025",
+            abstract: "Monocular deformable visual simultaneous localization and mapping (V-SLAM) is increasingly used in minimally invasive surgery (MIS) endoscopic systems to provide dense 3D reconstruction and robust camera tracking for navigation and intra-operative guidance. However, in complex dynamic endoscopic scenes with strong soft-tissue deformation, weak textures, and specular highlights, conventional methods that rely on traditional sparse optical flow often yield unreliable correspondences, leading to tracking failures and degraded reconstruction accuracy. To address these challenges, RaftNR-SLAM is proposed as a non-rigid monocular V-SLAM framework that integrates deep-learning-based RAFT optical flow for short-term data association and introduces an adaptive thresholding strategy, driven by the motion patterns of map points, to manage the dynamic deformation graph. These designs provide more robust and accurate correspondence information and enable more coherent regularization between map points, thereby stabilizing tracking in highly dynamic, non-rigid environments. Experiments on multiple medical datasets show that RaftNR-SLAM consistently outperforms existing monocular deformable V-SLAM systems in both reconstruction accuracy and tracking stability, indicating its potential for advancing medical automation and image-guided interventions.",
+            keywords: ["SLAM", "3D Deformable Reconstruction", "Non-Rigid System"],
+            isLink: false,
+            url: "#",
+            image: "image/pub2.png", // 请替换为实际论文图片链接
+            imageMode: "image"
+        },
+        {
             type: "Journal Paper",
             typeClass: "tag-orange",
             title: "Multi-scale GAN-driven GPR data inversion for monitoring urban road substructure",
             authors: "Feifei Hou, <strong>Xingyu Qian</strong>, Qiwen Meng, Jian Dong, Fei Lyu",
-            venue: "Automation in Construction, 2025",
+            venue: "<strong>Automation in Construction</strong>, 2025",
             abstract: "Accurate monitoring and visualization of urban road substructure and targets are impeded by challenges in inverting Ground Penetrating Radar (GPR) data, especially under multiple inversion objectives and complex road conditions. To address this challenge, a deep learning-based multi-scale inversion approach, termed MSInv-GPR, is proposed, which builds on the Pix2pix Generative Adversarial Network (Pix2pixGAN) framework. This approach introduces dual-channel inputs to improve inversion accuracy, integrates a multi-scale convolution module along with an Efficient Multi-scale Attention (EMA) module to better capture characteristic waveforms, and incorporates a loss function strategy to strengthen adversarial training and accelerate convergence. Ablation studies validate that MSInv-GPR achieves Structural Similarity Index (SSIM) of 99.75 %, Peak Signal-to-Noise Ratio (PSNR) of 47.9014, and Mean Squared Error (MSE) of 12.5825 for 8-bit images, with 51.69 % improvement in Power Supply Modulation Ratio (PSMR) and an increase in discriminator loss from 0.1132 to 1.1603 compared to a baseline.",
             keywords: ["GAN", "GPR Inversion", "Urban Monitoring"],
             isLink: true,
